@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+//@Configuration -> 이제는 스프링 부트가 기본 제공하는 오류 페이지 기능을 사용하기위해 주석 처리!
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

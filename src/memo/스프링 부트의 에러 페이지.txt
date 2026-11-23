@@ -1,0 +1,8 @@
+스프링 부트는 자동으로 new ErrorPage("/error")를 자동 등록한다. 
+그래서 WAS에서 예외나 response.sendError()를 만나게 되면 "/error" 주소가 있는 컨트롤러에 재요청을 자동으로 한다. 
+이떄 컨트롤러도 스프링 부트는 BasicErrroController라는 이름으로 스프링 부트가 자동으로 빈 등록하고, 재요청을 하게 되면 new ErrorPage에서 등록한 "/error" 요청을 매핑해서 
+오류 페이지를 자동 제공한다. 
+
+그러나 결국 근본 원리는 WAS에서 request 객체에 오류 정보를 담고, DispatcherType을 보고 스프링 부트가
+RequestDispatcher에 있는 상수로 어떤 오류 인지 알아 내서 거기 맞은 에러 코드(400,404 500 등)을 조회해내서
+/error폴더에 있는 오류 페이지를 호출하는 것에 불과
