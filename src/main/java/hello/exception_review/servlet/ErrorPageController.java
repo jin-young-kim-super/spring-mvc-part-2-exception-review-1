@@ -52,7 +52,7 @@ public class ErrorPageController {
         log.info("ERROR_REQUEST_URI: {}", request.getAttribute(ERROR_REQUEST_URI));
         log.info("ERROR_SERVLET_NAME: {}", request.getAttribute(ERROR_SERVLET_NAME));
         log.info("ERROR_STATUS_CODE: {}", request.getAttribute(ERROR_STATUS_CODE));
-        log.info("dispatchType={}", request.getDispatcherType());
+        log.info("dispatchType={}", request.getDispatcherType()); // ERROR 혹은 REQUEST 출력
 
     }
 
