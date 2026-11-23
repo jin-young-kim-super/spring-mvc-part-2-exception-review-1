@@ -1,0 +1,5 @@
+Filter는 서블릿 제공 기술이다. 
+그래서 필터 등록 시 filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR) 설정을 통해서 
+필터의 중복 호출을 막을 수가 있었다.(FilterRegistrationBean 객체 자체가 자바 서블릿이 제공하는 기능이다) 
+
+근데 인터셉터는 스프링이 제공하는 기능이다. 그럼 이번 시간에는 인터셉터는 어떻게 중복 호출을 막는지 알아 보자!!!
