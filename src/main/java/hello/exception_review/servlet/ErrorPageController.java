@@ -1,11 +1,19 @@
 package hello.exception_review.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * WAS에 Exception이 전파되거나 response.sendError(4xx,5xx)를 만나면 오류 페이지를 확인하고 컨트롤러를 재호출하는 것뿐 아니라
@@ -40,6 +48,24 @@ public class ErrorPageController {
         printErrorInfo(request);
         return "error-page/500";
     }
+
+    // 클라이언트의 HTTP 헤더의 Accept가 application/json인 경우 똑같은 요청 url(/error-page/500)이여도
+    // 이 컨트롤러가 우선권을 갖는다.
+    // 만약 Accepte : */*인 경우 위의 메서드가 우선권을 가진다.
+    @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String,Object>> errorPage500Api(HttpServletRequest request, HttpServletResponse response) {
+        log.info("API 에러 페이지 500");
+
+        HashMap<String,Object> result = new HashMap<>();
+        Exception ex = (Exception)request.getAttribute(ERROR_EXCEPTION);
+        result.put("status", request.getAttribute(ERROR_STATUS_CODE));
+        result.put("message", ex.getMessage());
+
+        Integer statusCode = (Integer)request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        return new ResponseEntity<>(result, HttpStatus.valueOf(statusCode));
+    }
+
+
 
     /**
      * 이런 오류 메시지를 로그로 반드시 출력해야 한다.
