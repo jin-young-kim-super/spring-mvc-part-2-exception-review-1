@@ -1,0 +1,25 @@
+이미지에 첨부해 놓았듯이 BasicErrorController는 오류 페이지에 오류 정보를 출력하기 위하여 Model에 기본적으로 아래 오류 정보들을 담아서 뷰 템플릿에 전달한다. 
+그러나 사실 사용자가 보는 오류 페이지에 아래와 같은 오류 정보를 넣으면 UX 측면에서도 좋지 않고, 보안 상으로도 좋지가 않다. 
+* timestamp: Fri Feb 05 00:00:00 KST 2021
+* status: 400
+* error: Bad Request
+* exception: org.springframework.validation.BindException
+* trace: 예외 trace
+* message: Validation failed for object='data'. Error count: 1
+* errors: Errors(BindingResult)
+* path: 클라이언트 요청 경로 (`/hello`)
+
+그래서 application.properties에서 Model에 담길 뷰를 컨트롤하는 설정을 넣을 수가 있다.
+(참고로, 이런 오류 정보를 오류 페이지로 노출해서는 절대 안된다. 오류 정보는 개발자만 볼 수 있게 서버 내부 로그로서만 출력해야 한다)
+
+ex)
+server.error.include-exception=true
+server.error.include-message=on_param
+server.error.include-stacktrace=on_param
+server.error.include-binding-errors=on_param
+
+on_param으로 설정된 오류 정보를 보고 싶으면 이렇게 URL에 파라미터를 넣어야 된다.
+요청 URL : localhost:8080/error-ex?message=&errors=&trace=
+
+참고로 본인이 직접 에러 컨트롤러를 만들고 싶다면, ErrorController 인터페이스 혹은 BasicErrorController를 상속 받아서
+기능 확장을 하면 된다.
