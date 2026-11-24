@@ -2,13 +2,17 @@ package hello.exception_review;
 
 import hello.exception_review.filter.LogFilter;
 import hello.exception_review.interceptor.LogInterceptor;
+import hello.exception_review.resolver.MyHandlerExceptionResolver;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 //@Configuration -> 이제는 스프링 부트가 기본 제공하는 오류 페이지 기능을 사용하기위해 주석 처리!
 public class WebConfig implements WebMvcConfigurer {
@@ -24,6 +28,11 @@ public class WebConfig implements WebMvcConfigurer {
                         // 인터셉터의 중복 호출을 막는 것이 서블릿 필터와의 큰 차이이다.
                         "error", "/error-page/**"
                         );
+    }
+
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+        resolvers.add(new MyHandlerExceptionResolver());
     }
 
     //@Bean
