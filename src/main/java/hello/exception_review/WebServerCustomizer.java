@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * -> 만약 /error-ex가 호출돼 RuntimeException 예외가 발생하여 WAS 전달 시 WAS는 오류 페이지를 보고 RuntimeException.class와 매핑된 오류 페이지가 있는지 확인한다.
  * 그리고 /error-page/500이 있음을 알고 해당 컨트롤러에 오류 페이지 제공을 위해 컨트롤러를 재호출한다.
  */
-@Component // 스프링 부트가 이걸 자동 빈 등록하도록 해줘야 한다
+//@Component // 스프링 부트가 이걸 자동 빈 등록하도록 해줘야 한다
 public class WebServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
         // HttpStatus.NOT_FOUND : 404에러 발생 시

@@ -1,0 +1,13 @@
+Html 페이지 vs API 오류
+BasicErrorController 를 확장하면 JSON 메시지도 변경할 수 있다. (수업에서 실제로 해보지는 않았지만, BasicErrorController 내부의 getErrorAttribute를 개발자가 오버라이딩하여 JSON에 들어갈 내용을 조작할 수가 있다)
+그런데 API 오류는 조금 뒤에 설명할@ExceptionHandler 가 제공하는 기능이 훨씬 막강하므로 지금은 그냥 "아..BasicErrorController를 확장해서 JSON 오류 메시지를 변경할 수 있구나" 정도로만 이해해두자.
+-> @ExceptionHandler가 어떤 점에서 더 막강한지는 추후 학습에서 배움
+
+스프링 부트가 제공하는 BasicErrorController 는 HTML 페이지를 제공하는 경우에는 매우 편리하다. 4xx, 5xx 등등 모두 잘 처리해준다. 
+
+그런데 API 오류 처리는 다른 차원의 이야기이다. 
+API 마다, 각각의 컨트롤러나 예외마다 서로 다른 응답 결과를 출력해야 할 수도 있다. 
+예를 들어서 회원과 관련된 API에서 예외가 발생할 때 응답과, 상품과 관련된 API에서 발생하는 예외에 따라 그 결과가 달라질 수 있다.(이미지에 첨부된 JSON결과를 봐라!! 오류 정보를 기본으로 제공하고 굉장히 단조롭다) 
+결과적으로 매우 세밀하고 복잡하다. 따라서 BasicErrorController 방법은 HTML 화면을 처리할 때 사용하고, API 오류 처리는 뒤에서 설명할 @ExceptionHandler 를 사용하자.
+그렇다면 복잡한 API 오류는 어떻게 처리해야하는지 다음 시간부터 하나씩 알아보자.(BasicErrorController의 getErrorArrtributes은 API 오류를 상황에 따라, 또
+세밀하고 복잡하게 설정 못하나??? 이건 과제로 남겨 두자!)
