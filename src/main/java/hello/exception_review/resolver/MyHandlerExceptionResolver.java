@@ -29,6 +29,7 @@ public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
                 // response.sendError(...) : 컨트롤러에서 던져진 IllegalArgumentException 예외를
                 // sendError(..)와 return new ModelAndVIew를 통해 더 이상의 예외 전파를 차단.
                 // 만약 Exception이 IllegalArgumentExcpetion이 아니면 이 예외가 WAS까지 전파됨
+                //※ 그러나 WAS는 여전히 컨트롤러(BasicErrroController)를 재호출한다.
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, ex.getMessage());
                 return new ModelAndView();
             }

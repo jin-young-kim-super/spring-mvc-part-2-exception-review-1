@@ -3,6 +3,7 @@ package hello.exception_review;
 import hello.exception_review.filter.LogFilter;
 import hello.exception_review.interceptor.LogInterceptor;
 import hello.exception_review.resolver.MyHandlerExceptionResolver;
+import hello.exception_review.resolver.UserHandlerExceptionResolver;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -29,10 +30,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "error", "/error-page/**"
                         );
     }
-
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 
     //@Bean

@@ -1,0 +1,4 @@
+서블릿을 활용한 API 예외 처리이든, HandlerExceptionResolver를 활용한 API 예외 처리이든, 저번 시간까지 배운 학습 내용에서는
+여전히 위 2가지 방법들 다 WAS를 거친다음 컨트롤러러 다시 재호출되는 복잡한 과정을 거친다. 
+
+그러나 이번 시간에는 HandlerExceptionResolver를 활용하여서 WAS까지 간 다음 컨트롤러를 다시 재호출하지 않아도 되는 방법을 배운다.
