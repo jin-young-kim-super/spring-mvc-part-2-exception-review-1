@@ -1,0 +1,9 @@
+DefaultHanlderExceptionResolver : 스프링 내부에서 발생하는 스프링 예외를 해결하며, HTTP STATUS를 400으로 변경한다. 
+-> 대표적인 스프링 예외 TypeMismatchException으로 설명을 하겠다. 
+@ModelAttribute HelloData에 Integer price라는 필드가 있는데 여기에 사용자가 "qqqq" 문자열을 대입하면 ArgumentResolver에서 바인딩을 할 떄 오류가 날라와서 
+BindingResult가 없으면 컨트롤러 호출 자체에 실패하며 TypeMistmatchException이라는 스프링 예외를 발생시킨다. 
+그러나 이러한 스프링 예외는 대부분 클라이언트가 요청 정보를 잘못 보내서 생긴 예외이기 때문에, 스프링은 스프링 예외를 발생시키며 DefaultHandlerExceptionResolver가 그 예외를
+HTTP 상태 코드 400으로 처리한다.
+즉, 클라이언트의 잘못된 요청 정보 입력으로 인한 스프링 예외 발생 시에는, DafaultHandlerExceptionResolver가 호출되며 그 예외를 내부에서 400으로 변환한다.
+※ 특징 : ResponseStatusExceptionResolver와 같이 sendError()를 사용하기 때문에 WAS에서 BasicErrorController를 재호출한다. 
+※ DefaultHandlerExceptionResolver가 처리하는 스프링 예외 목록은 해당 Resolver 내부에 잘 정의돼 있으니 참고!
